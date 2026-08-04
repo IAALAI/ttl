@@ -1,0 +1,72 @@
+﻿BAF = {
+	# british and french united empire
+	color = { 20  50  210 }
+	country_type = recognized
+	tier = hegemony
+
+	cultures = { british french wallonian dutch portuguese spanish  }
+	capital = STATE_HOME_COUNTIES
+}
+
+EAS = {
+	# eurasian soviet republics
+	color = { 238 28 37 }
+
+	country_type = recognized
+	tier = hegemony
+	capital = STATE_MOSCOW
+	cultures = {
+		east_german
+		ryukyuan
+		tatar # 鞑靼
+		vietnamese # 京
+
+		russian
+		han
+	}
+}
+
+GCH = {
+	# great china hegemony
+	color = { 1 1 1}
+
+	country_type = recognized
+	tier = hegemony
+	cultures = {
+		han
+		tibetan
+		manchu
+		hakka
+		min
+		miao
+		korean
+		zhuang
+		mongol # set chinese cultures class to mongol
+		yue
+		yi
+		vietnamese
+		ryukyuan
+	}
+}
+
+TNW = {
+	# the new world
+	color = { 1 1 1 }
+	country_type = recognized
+	tier = hegemony
+	cultures = {
+		yankee
+		dixie
+		north_andean
+		south_andean
+		
+	}
+}
+
+TWO = {
+	# the world order
+	color = { 126 231 119}
+	country_type = recognized
+	tier = hegemony
+	cultures = { british han french north_german south_german russian }
+}

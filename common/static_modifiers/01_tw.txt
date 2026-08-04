@@ -1,0 +1,19 @@
+﻿baf_appeasement_policy = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_bureaucracy_mult = -0.15
+}
+
+baf_control_country = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	country_liberty_desire_add = -0.3
+}
+
+baf_conquer_south_america = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_positive.dds
+	# 好好加油吧，这个 modifier 不会给予真的加成效果的说。。。
+}
+
+baf_conquer_north_africa = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_fist_positive.dds
+	state_incorporation_speed_mult = 2.0
+}

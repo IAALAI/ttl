@@ -1,0 +1,11 @@
+﻿# 好像官方已经做出来 欧洲+亚洲这个区域了
+
+# 这里暂时不需要使用,本来是准备专门给 欧亚苏维埃共和国 用的
+
+geographic_region_eurasia = {
+	short_key = "eurasia"
+
+	state_regions = {
+
+	}
+}

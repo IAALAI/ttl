@@ -1,0 +1,8 @@
+BAF = {
+	pattern = "pattern_solid.tga"
+	color1 = blue
+
+	textured_emblem = {
+		texture = "baf.dds"
+	}
+}

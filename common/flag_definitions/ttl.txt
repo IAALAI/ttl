@@ -1,0 +1,37 @@
+﻿BAF = {
+	flag_definition = {
+		subject_canton = BAF
+		coa = BAF
+		priority = 1
+	}
+}
+
+EAS = {
+	flag_definition = {
+		coa = RUS
+		subject_canton = RUS
+		priority = 1
+	}
+}
+
+GHC = {
+	flag_definition = {
+		coa = GHC
+		subject_canton = GHC
+		priority = 1
+	}
+	flag_definition = {
+		coa = GHC_fascist
+		priority = 20
+		trigger = {
+			coa_def_fascist_flag_trigger = yes
+		}
+	}
+	flag_definition = {
+		coa = GHC_communist
+		priority = 1500
+		trigger = {
+			coa_def_communist_flag_trigger = yes
+		}
+	}
+}

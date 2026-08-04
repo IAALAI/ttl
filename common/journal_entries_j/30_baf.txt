@@ -1,0 +1,362 @@
+﻿je_baf_problem_group = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_problem
+	should_be_pinned_by_default_involved = yes
+
+	is_shown_when_inactive = {
+		OR = {
+			country_has_primary_culture = cu:british
+			country_has_primary_culture = cu:french
+		}
+		always = no
+	}
+
+	possible = {
+		root = c:BAF
+		always = no
+	}
+
+	immediate = {
+	}
+
+	complete = {
+		has_variable = je_baf_problem_v
+	}
+
+	on_complete = {
+
+	}
+}
+
+je_baf_lowcountries_question = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_problem
+	should_be_pinned_by_default_involved = yes
+
+	is_shown_when_inactive = {
+		root = c:BAF
+		always = no
+	}
+
+	possible = {
+		has_journal_entry = je_baf_problem_group
+	}
+
+	immediate = {
+
+	}
+
+    complete = {
+		country_or_subject_owns_entire_state_region = STATE_FRENCH_LOW_COUNTRIES
+		country_or_subject_owns_entire_state_region = STATE_WALLONIA
+		country_or_subject_owns_entire_state_region = STATE_FLANDERS
+		country_or_subject_owns_entire_state_region = STATE_HOLLAND
+		country_or_subject_owns_entire_state_region = STATE_GELRE
+		country_or_subject_owns_entire_state_region = STATE_FRIESLAND
+    }
+
+    on_complete = {
+		set_variable = {
+			name = je_baf_problem_lowcountries_v
+			value = yes
+		}
+    }
+}
+
+je_baf_iberian_question = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_problem
+	should_be_pinned_by_default_involved = yes
+
+	is_shown_when_inactive = {
+		root = c:BAF
+		always = no
+	}
+
+	possible = {
+		has_journal_entry = je_baf_problem_group
+	}
+
+	complete = {
+		always = no
+	}
+
+    on_complete = {
+		set_variable = {
+			name = je_baf_problem_iberian_v
+			value = yes
+		}
+    }
+}
+
+je_baf_conquer_group = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		root = c:BAF
+	}
+
+	immediate = {
+		ig:ig_armed_forces = {
+			set_ig_trait = ig_trait:ig_trait_materiel_waste
+			set_ig_trait = ig_trait:ig_trait_veteran_consultation
+			set_ig_trait = ig_trait:ig_trait_elan_vital
+		}
+
+	}
+
+	# 等一下做一个进度条,每完成一个征服日志就增加一点进度,完成全部征服日志就完成这个总日志
+
+	complete = {
+
+	}
+
+	on_complete = {
+		# 
+	}
+}
+# 强化中欧联邦
+je_baf_conquer_central_europe = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	## 控制莱茵联邦和多瑙联邦,具有额外的扩张联邦决议
+
+	scripted_button = button_baf_c_c_rhine_c
+	scripted_button = button_baf_c_c_rhine_e
+
+
+	scripted_button = button_baf_c_c_danube_c
+	scripted_button = button_baf_c_c_danube_e
+
+
+	immediate = {
+		# 禁用掉默认的自然疆界莱茵邦联日志
+
+	}
+
+	# 完成条件,整个中欧完全被控制
+	complete = {
+		c:RHN ?= {
+			is_subject_of = ROOT
+			any_state_in_rhine = {
+				owner = c:RHN
+			}
+		}
+		c:KUK ?= {
+			is_subject_of = ROOT
+			any_state_in_danube = {
+				owner = c:KUK
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_central_europe
+		# 启用2个决议,允许吃掉上面2个傀儡国
+	}
+}
+# 整合北美,收复美利坚,主要跑哈德逊湾公司
+je_baf_conquer_north_america = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	## 如果没有哈德逊湾公司,允许改组北美最大的殖民地为哈德逊湾公司
+	scripted_button = button_baf_c_na_reset_hbc
+
+	## 扩张哈德逊湾公司
+	scripted_button = button_baf_c_na_expansion_hbc
+	scripted_button = button_baf_c_na_recovered
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	# 完成条件,整个北美完全被控制
+	complete = {
+		NOT = {
+			any_state_in_north_america = {
+				NOT = {
+					OR = {
+						owner = root
+						owner = {
+							is_subject_of = ROOT
+						}
+						owner = {
+							
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_north_america
+	}
+}
+# 整合南美,大伊比利亚后续
+je_baf_conquer_south_america = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	immediate = {
+		add_modifier =  {
+			name = baf_conquer_south_america
+			days = very_long_modifier_time
+		}
+	}
+
+	complete = {
+		# 完成条件,整个南美完全被控制
+		NOT = {
+			any_state_in_south_america = {
+				NOT = {
+					owner = root
+				}
+			}
+		 }
+	}
+
+	on_complete = {
+		set_variable = conquer_south_america
+	}
+}
+# 北非,法国后
+je_baf_conquer_north_africa = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+	## 魔改阿尔及利亚事件链
+	## 直接加快在北非整个速率
+
+	immediate = {
+  		every_state_in_north_africa = {
+			add_modifier =  {
+				name = baf_conquer_north_africa
+				days = very_long_modifier_time
+			}
+		}
+	}
+
+	# 完成条件,整个北非完全被控制
+	complete = {
+		NOT = {
+			any_state_in_north_africa = {
+				NOT = {
+					owner = root
+				}
+			}
+		}
+
+	}
+
+	on_complete = {
+		set_variable = conquer_north_africa
+		# 奖励 mod,赐与市场内港口连接消耗减少20% ，美名其曰 地中内海
+	}
+}
+# 中东,大博弈的pro,主要是对抗俄罗斯
+je_baf_conquer_middle_east = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	## 强化大博弈事件链
+
+	## 不给任何buff,设计一个进度条，和俄罗斯对比在大伊朗地区的掌控力
+
+	# 完成条件,彻底击败俄罗斯
+	complete = {
+
+	}
+}
+# 南亚,收复印度,主要跑东印度公司
+je_baf_conquer_south_asia = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	scripted_button = button_baf_india_buymore
+	scripted_button = button_baf_india_conquer
+
+	## 补齐印度事件链,换tag之后会把印度直接卡没...
+	## 这里算是小小的修复
+	## 允许直接吞并印度,就像是标准的英国日志一样
+	immediate = {
+		# 去掉官方的默认日志
+
+	}
+
+	# 完成条件,整个印度完全被控制
+}
+# 东南亚,尼德兰东印度的扩展
+je_baf_conquer_southeast_asia = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	# 就像是推动北美整合一样，推动东南亚整合
+	# 二阶段直接吃联合东南亚和澳大利亚
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	immediate = {
+
+	}
+
+	# 完成条件,整个东南亚完全被控制
+	complete = {
+		always = no
+	}
+}

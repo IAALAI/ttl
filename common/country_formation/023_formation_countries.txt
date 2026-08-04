@@ -1,0 +1,232 @@
+﻿BAF = {
+	states = {
+		# GBR
+		STATE_HOME_COUNTIES
+		STATE_WEST_COUNTRY
+		STATE_WALES
+		STATE_MIDLANDS
+		STATE_LANCASHIRE
+		STATE_YORKSHIRE
+		STATE_LOWLANDS
+		STATE_HIGHLANDS
+		STATE_EAST_ANGLIA
+		STATE_ULSTER
+		STATE_CONNAUGHT
+		STATE_LEINSTER
+		STATE_MUNSTER
+
+		# LOW
+		STATE_FRIESLAND
+		STATE_HOLLAND
+		STATE_GELRE
+		STATE_FLANDERS
+		STATE_WALLONIA
+
+		# FRA
+		STATE_FRENCH_LOW_COUNTRIES
+		STATE_BRITTANY
+		STATE_NORMANDY
+		STATE_PICARDY
+		STATE_CHAMPAGNE
+		STATE_MAINE_ANJOU
+		STATE_ORLEANS
+		STATE_ILE_DE_FRANCE
+		STATE_LORRAINE
+		STATE_POITOU
+		STATE_BURGUNDY
+		STATE_FRANCHE_COMTE
+		STATE_AQUITAINE
+		STATE_GUYENNE
+		STATE_AUVERGNE_LIMOUSIN
+		STATE_RHONE
+		STATE_SAVOY
+		STATE_LANGUEDOC
+		STATE_PROVENCE
+
+		# IBE
+		STATE_GALICIA
+		STATE_ASTURIAS
+		STATE_ENTRE_DOURO_E_MINHO
+		STATE_BEIRA
+		STATE_ESTREMADURA
+		STATE_ALENTEJO
+		STATE_LEON
+		STATE_EXTREMADURA
+		STATE_NEW_CASTILE
+		STATE_OLD_CASTILE
+		STATE_ARAGON
+		STATE_CATALONIA
+		STATE_LOWER_ANDALUSIA
+		STATE_UPPER_ANDALUSIA
+		STATE_MURCIA
+		STATE_VALENCIA
+		STATE_BALEARIC_ISLANDS
+		STATE_BASQUE_COUNTRY
+	}
+	is_major_formation = yes
+	unification_play = dp_unify_baf
+	leadership_play = dp_leadership_baf
+
+	required_states_fraction = 0.8
+
+	ai_will_do = { always = no }
+
+	possible = {
+		OR = {
+			country_has_primary_culture = cu:british
+			country_has_primary_culture = cu:french
+			country_has_primary_culture = cu:wallonian
+			country_has_primary_culture = cu:dutch
+			country_has_primary_culture = cu:portuguese
+			country_has_primary_culture = cu:spanish
+		}
+	}
+}
+
+EAS = {
+	states = {
+		STATE_HOME_COUNTIES
+		STATE_ILE_DE_FRANCE
+		STATE_BEIJING
+		STATE_KYOTO
+	}
+	ai_will_do = { always = no }
+	is_major_formation = yes
+	unification_play = dp_unify_germany
+	leadership_play = dp_leadership_germany
+	required_states_fraction = 1
+
+	possible = {
+		always = yes
+	}
+}
+
+GCH = {
+	states = {
+		STATE_UPPER_YENISEYSK
+		STATE_YAKUTSK
+		STATE_TOMSK
+		STATE_EAST_HAUSALAND
+		STATE_BURYATIA
+		STATE_TRANS_BAIKAL
+		STATE_KRASNOYARSK
+		STATE_IRKUTSK
+		STATE_KOLYMA
+		STATE_OKHOTSK
+		STATE_CHUKOTKA
+		STATE_KAMCHATKA
+		STATE_SAKHALIN
+		STATE_ALTAI
+		STATE_TUVA
+		STATE_ULIASTAI
+		STATE_URGA
+		STATE_NORTHERN_MANCHURIA
+		STATE_SOUTHERN_MANCHURIA
+		STATE_OUTER_MANCHURIA
+		STATE_AMUR
+		STATE_JETISY
+		STATE_SYRDARYA
+		STATE_UZBEKIA
+		STATE_MERZ
+		STATE_KHIVA
+		STATE_BALKH
+		STATE_HERAT
+		STATE_CENTRAL_HIGHLANDS
+		STATE_TAJIKISTAN
+		STATE_FERGANA
+		STATE_KIRGHIZIA
+
+		STATE_ZHILI
+		STATE_HENAN
+		STATE_SHANDONG
+		STATE_SHANXI
+		STATE_GANSU
+		STATE_JIANGSU
+		STATE_NORTHERN_ANHUI
+		STATE_SOUTHERN_ANHUI
+		STATE_ZHEJIANG
+		STATE_FUJIAN
+		STATE_JIANGXI
+		STATE_EASTERN_HUBEI
+		STATE_WESTERN_HUBEI
+		STATE_HUNAN
+		STATE_SICHUAN
+		STATE_GUANGDONG
+		STATE_GUANGXI
+		STATE_YUNNAN
+		STATE_GUIZHOU
+		STATE_GANSU
+		STATE_BEIJING
+		STATE_SHENGJING
+		STATE_HINGGAN
+		STATE_SHAOZHOU
+		STATE_ALXA
+		STATE_NINGXIA
+		STATE_XIAN
+		STATE_CHONGQING
+		STATE_FORMOSA
+		STATE_NANJING
+		STATE_SUZHOU
+		STATE_DZUNGARIA
+		STATE_TIANSHAN
+		STATE_QINGHAI
+		STATE_NGARI
+		STATE_LHASA
+		STATE_EASTERN_HIMALAYAS
+		STATE_KACHIN
+		STATE_SHAN_STATES
+
+		STATE_TONKIN
+		STATE_ANNAM
+		STATE_MEKONG
+		STATE_LAOS
+		STATE_CHIANG_MAI
+
+		STATE_PYONGYANG
+		STATE_SARIWON
+		STATE_SEOUL
+		STATE_BUSAN
+		STATE_YANGHO
+	}
+
+	possible = {
+		country_has_primary_culture = cu:han
+		has_state_in_state_region = STATE_BEIJING
+	}
+
+	ai_will_do = { always = yes }
+}
+
+TNW = {
+	states = {
+		# 整个美洲所有州
+	}
+
+	ai_will_do = { always = yes }
+
+	possible = {
+		any_state_in_state_a = {
+			OR = {
+				owner = root
+				owner = {
+					is_subject_of = root
+				}
+			}
+		}
+		# 整个美洲,都处于掌控之中,无论是直辖还是附属
+	}
+}
+
+TWO = {
+	is_major_formation = yes
+	unification_play = dp_unify_germany
+	leadership_play = dp_leadership_germany
+
+	ai_will_do = {
+		always = no
+	}
+
+	possible = {
+
+	}
+}

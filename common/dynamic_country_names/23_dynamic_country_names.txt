@@ -1,0 +1,115 @@
+﻿BAF = {
+    dynamic_country_name = {
+        name = dyn_c_baf 
+        adjective = dyn_c_baf_adjective
+        priority = 1
+
+		trigger = {
+            always = yes
+		}
+    }
+    dynamic_country_name = {
+		name = dyn_c_union_empire
+		adjective = dyn_c_union_empire_adjective
+
+		is_main_tag_only = yes
+		priority = 10
+
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				OR = {
+					has_law_or_variant = law_type:law_monarchy
+					has_law_or_variant = law_type:law_theocracy
+				}
+			}
+		}
+	}
+    dynamic_country_name = {
+		name = dyn_c_people_commune
+		adjective = dyn_c_people_commune_adjective
+
+		is_main_tag_only = yes
+		priority = 10
+
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				has_law_or_variant = law_type:law_council_republic
+			}
+		}
+	}
+}
+
+GCH = {
+	dynamic_country_name = {
+		name = dyn_c_gch 
+		adjective = dyn_c_gch_adjective
+		priority = 1
+
+		trigger = {
+			always = yes
+		}
+	}
+	dynamic_country_name = {
+		name = dyn_c_chinese_empire
+		adjective = dyn_c_chinese_empire_adjective
+
+		is_main_tag_only = yes
+		priority = 10
+
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				OR = {
+					has_law_or_variant = law_type:law_monarchy
+					has_law_or_variant = law_type:law_theocracy
+				}
+			}
+		}
+	}
+	dynamic_country_name = {
+		name = dyn_c_chinese_republic
+		adjective = dyn_c_chinese_republic_adjective
+		
+		priority = 10
+
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				OR = {
+					has_law_or_variant = law_type:law_parliamentary_republic
+					has_law_or_variant = law_type:law_presidential_republic
+				}
+			}
+		}
+	}
+	dynamic_country_name = {
+		name = dyn_c_chinese_socialist
+		adjective = dyn_c_chinese_socialist_adjective
+		priority = 20
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				has_law_or_variant = law_type:law_council_republic
+			}
+		}
+	}
+	dynamic_country_name = {
+
+		name = dyn_c_chinese_fascist
+		adjective = dyn_c_chinese_fascist_adjective
+
+		priority = 30
+
+		trigger = {
+			exists = scope:actor
+			scope:actor ?= {
+				AND = {
+					has_law_or_variant = law_type:law_corporate_state
+					has_law_or_variant = law_type:law_ethnostate
+				}
+			}
+		}
+	}
+}

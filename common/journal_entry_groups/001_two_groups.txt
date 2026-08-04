@@ -1,0 +1,18 @@
+﻿# 终湮支配者 事件链
+je_group_two = {
+	context = none
+}
+
+# 西欧 事件链
+je_group_baf_problem = {
+	context = country
+}
+
+je_group_baf_conquer = {
+	context = country
+}
+
+# 大中华 事件链
+je_group_chh = {
+	context = country
+}
