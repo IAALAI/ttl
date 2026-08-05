@@ -14,6 +14,14 @@ EAS = {
 	}
 }
 
+TNW = {
+	flag_definition = {
+		coa = USA
+		subject_canton = USA
+		priority = 1
+	}
+}
+
 GHC = {
 	flag_definition = {
 		coa = GHC

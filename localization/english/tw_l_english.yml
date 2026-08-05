@@ -58,6 +58,8 @@
   dyn_c_chinese_socialist_adjective: "Pan-Chinese Socialist People's Commune"
   dyn_c_chinese_fascist: "Chīn State"
   dyn_c_chinese_fascist_adjective: "Chīn State"
+  TNW: "New World"
+  TNW_ADJ: "New World"
   TWO: "Terminus Dominators"
   war_goal_ttl_unification_leadership_type_name: "force unification leadership war"
   ttl: "ttl mode test text"
