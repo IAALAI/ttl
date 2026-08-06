@@ -17,6 +17,7 @@
   je_group_baf_conquer: "West European Conquest"
   je_baf_conquer_group: "Western Europe Conquests"
   je_baf_conquer_group_reason: "The powers of Western Europe have cast off their old constraints to claim their rightful place as the arbiters of the globe. The world shall now witness the dawn of a new, unified hegemony"
+  je_baf_conquer_advance: "Conquest progress +1"
   je_baf_conquer_central_europe: "Reorganizing the Confederation"
   je_baf_conquer_central_europe_reason: "To ensure lasting stability in the heart of the continent, we must dismantle old rivalries and establish the Confederations of the Rhine and the Danube under our guidance"
   je_baf_conquer_north_america: "Unite the Anglosphere"
