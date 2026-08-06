@@ -1,0 +1,5 @@
+{
+  "name": "ttl (Victoria 3 mod)",
+  "user": "ubuntu",
+  "install": "bash ./.cursor/install.sh"
+}
