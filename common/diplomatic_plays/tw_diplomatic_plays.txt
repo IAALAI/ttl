@@ -15,12 +15,6 @@
 		NOT = { exists = c:BAF }
 		NOT = { is_country_type = decentralized }
 		has_technology_researched = pan-nationalism
-		custom_tooltip = {
-			text = no_confederation_of_the_rhine_tt
-			NOT = {
-				exists = c:BAF
-			}
-		}
 	}
 
 	on_weekly_pulse = {}
