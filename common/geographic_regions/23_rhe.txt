@@ -4,6 +4,9 @@ geographic_region_rhine = {
 	short_key = "rhine"
 
 	state_regions = {
+		STATE_RHINELAND
+		STATE_NORTH_RHINE
+		STATE_ALSACE_LORRAINE
 		STATE_SCHLESWIG_HOLSTEIN
 		STATE_HANNOVER
 		STATE_WESTPHALIA

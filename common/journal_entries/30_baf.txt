@@ -1,0 +1,535 @@
+﻿je_baf_problem_group = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_problem
+	should_be_pinned_by_default_involved = yes
+
+	is_shown_when_inactive = {
+		OR = {
+			country_has_primary_culture = cu:british
+			country_has_primary_culture = cu:french
+		}
+		always = no
+	}
+
+	possible = {
+		root = c:BAF
+		always = no
+	}
+
+	immediate = {
+	}
+
+	complete = {
+		has_variable = je_baf_problem_v
+	}
+
+	on_complete = {
+
+	}
+}
+
+je_baf_lowcountries_question = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_problem
+	should_be_pinned_by_default_involved = yes
+
+	is_shown_when_inactive = {
+		root = c:BAF
+		always = no
+	}
+
+	possible = {
+		has_journal_entry = je_baf_problem_group
+	}
+
+	immediate = {
+
+	}
+
+    complete = {
+		country_or_subject_owns_entire_state_region = STATE_FRENCH_LOW_COUNTRIES
+		country_or_subject_owns_entire_state_region = STATE_WALLONIA
+		country_or_subject_owns_entire_state_region = STATE_FLANDERS
+		country_or_subject_owns_entire_state_region = STATE_HOLLAND
+		country_or_subject_owns_entire_state_region = STATE_GELRE
+		country_or_subject_owns_entire_state_region = STATE_FRIESLAND
+    }
+
+    on_complete = {
+		set_variable = {
+			name = je_baf_problem_lowcountries_v
+			value = yes
+		}
+    }
+}
+
+je_baf_iberian_question = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_problem
+	should_be_pinned_by_default_involved = yes
+
+	is_shown_when_inactive = {
+		root = c:BAF
+		always = no
+	}
+
+	possible = {
+		has_journal_entry = je_baf_problem_group
+	}
+
+	complete = {
+		always = no
+	}
+
+    on_complete = {
+		set_variable = {
+			name = je_baf_problem_iberian_v
+			value = yes
+		}
+    }
+}
+
+je_baf_conquer_group = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		root = c:BAF
+	}
+
+	scripted_button = button_baf_annex_rhn
+	scripted_button = button_baf_annex_kuk
+	scripted_button = button_baf_c_na_recovered
+	scripted_button = button_baf_annex_bic
+	scripted_button = button_baf_annex_southeast
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		baf_count_greater_persia = yes
+	}
+
+	# 每完成一个征服子日志 +1，凑齐 7 个后父日志完成
+	current_value = {
+		value = var:baf_conquer_progress_var
+	}
+
+	goal_add_value = {
+		add = 7
+	}
+
+	progressbar = yes
+
+	complete = {
+		scope:journal_entry = {
+			is_goal_complete = yes
+		}
+	}
+}
+
+je_baf_conquer_central_europe = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	scripted_button = button_baf_c_c_rhine_c
+	scripted_button = button_baf_c_c_rhine_e
+	scripted_button = button_baf_c_c_danube_c
+	scripted_button = button_baf_c_c_danube_e
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_rhine_controlled_tt
+			any_state_in_rhine = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+		custom_tooltip = {
+			text = je_baf_danube_controlled_tt
+			any_state_in_danube = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_central_europe
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}
+
+je_baf_conquer_north_america = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	scripted_button = button_baf_c_na_reset_hbc
+	scripted_button = button_baf_c_na_expansion_hbc
+	scripted_button = button_baf_c_na_conquer_hbc
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_north_america_controlled_tt
+			any_state_in_north_america = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_north_america
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}
+
+je_baf_conquer_south_america = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	immediate = {
+		add_modifier = {
+			name = baf_conquer_south_america
+			days = very_long_modifier_time
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_south_america_controlled_tt
+			any_state_in_south_america = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_south_america
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}
+
+je_baf_conquer_north_africa = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	immediate = {
+		baf_apply_north_africa_incorporation = yes
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			baf_apply_north_africa_incorporation = yes
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_north_africa_controlled_tt
+			any_state_in_north_africa = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_north_africa
+		add_modifier = { name = baf_mare_nostrum }
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}
+
+je_baf_conquer_middle_east = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	immediate = {
+		baf_count_greater_persia = yes
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			baf_count_greater_persia = yes
+		}
+	}
+
+	# region_greater_persia 共 27 个州
+	current_value = {
+		value = var:baf_persia_var
+	}
+
+	goal_add_value = {
+		add = 27
+	}
+
+	progressbar = yes
+
+	status_desc = {
+		first_valid = {
+			triggered_desc = {
+				desc = je_baf_conquer_middle_east_status
+			}
+		}
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_persia_controlled_tt
+			any_state_in_greater_persia = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+		custom_tooltip = {
+			text = je_baf_russia_expelled_tt
+			NOT = {
+				any_state_in_greater_persia = {
+					OR = {
+						AND = {
+							exists = c:RUS
+							owner = c:RUS
+						}
+						AND = {
+							exists = c:RUS
+							owner = { top_overlord ?= c:RUS }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_middle_east
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}
+
+je_baf_conquer_south_asia = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	scripted_button = button_baf_india_buymore
+	scripted_button = button_baf_india_conquer
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_india_controlled_tt
+			any_state_in_india = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_south_asia
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}
+
+je_baf_conquer_southeast_asia = {
+	icon = "gfx/interface/icons/event_icons/waving_flag.dds"
+	group = je_group_baf_conquer
+	should_be_pinned_by_default_involved = yes
+	is_shown_when_inactive = {
+		root = c:BAF
+	}
+
+	scripted_button = button_baf_voc_c
+	scripted_button = button_baf_voc_e
+
+	possible = {
+		has_journal_entry = je_baf_conquer_group
+	}
+
+	complete = {
+		custom_tooltip = {
+			text = je_baf_southeast_asia_controlled_tt
+			any_state_in_south_east_asia = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count = all
+			}
+		}
+	}
+
+	on_complete = {
+		set_variable = conquer_southeast_asia
+		custom_tooltip = je_baf_conquer_advance
+		if = {
+			limit = {
+				NOT = { has_variable = baf_conquer_progress_var }
+			}
+			set_variable = {
+				name = baf_conquer_progress_var
+				value = 0
+			}
+		}
+		change_variable = {
+			name = baf_conquer_progress_var
+			add = 1
+		}
+	}
+}

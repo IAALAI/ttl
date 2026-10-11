@@ -6,7 +6,7 @@ geographic_region_danube = {
 	state_regions = {
 		STATE_BOHEMIA
 		STATE_MORAVIA
-		STATE_GALICIA
+		STATE_WEST_GALICIA
 		STATE_EAST_GALICIA
 		STATE_AUSTRIA
 		STATE_SLOVAKIA

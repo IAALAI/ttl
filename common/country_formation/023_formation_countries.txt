@@ -198,23 +198,12 @@ GCH = {
 }
 
 TNW = {
-	states = {
-		# 整个美洲所有州
-	}
+	# 全美洲（北美 + 中美 + 南美），与 geographic_region_americas 一致
+	geographic_region = geographic_region_americas
+
+	required_states_fraction = 0.8
 
 	ai_will_do = { always = yes }
-
-	possible = {
-		any_state_in_state_a = {
-			OR = {
-				owner = root
-				owner = {
-					is_subject_of = root
-				}
-			}
-		}
-		# 整个美洲,都处于掌控之中,无论是直辖还是附属
-	}
 }
 
 TWO = {

@@ -1,0 +1,49 @@
+﻿# region_greater_persia 共 27 个州
+baf_count_greater_persia = {
+	set_variable = { name = baf_persia_var value = 0 }
+	set_variable = { name = baf_persia_rus_var value = 0 }
+	every_state_in_greater_persia = {
+		limit = {
+			OR = {
+				owner = ROOT
+				owner = { top_overlord ?= ROOT }
+			}
+		}
+		ROOT = {
+			change_variable = { name = baf_persia_var add = 1 }
+		}
+	}
+	every_state_in_greater_persia = {
+		limit = {
+			OR = {
+				AND = {
+					exists = c:RUS
+					owner = c:RUS
+				}
+				AND = {
+					exists = c:RUS
+					owner = { top_overlord ?= c:RUS }
+				}
+			}
+		}
+		ROOT = {
+			change_variable = { name = baf_persia_rus_var add = 1 }
+		}
+	}
+}
+
+baf_apply_north_africa_incorporation = {
+	every_state_in_north_africa = {
+		limit = {
+			OR = {
+				owner = ROOT
+				owner = { top_overlord ?= ROOT }
+			}
+			NOT = { has_modifier = baf_conquer_north_africa }
+		}
+		add_modifier = {
+			name = baf_conquer_north_africa
+			days = very_long_modifier_time
+		}
+	}
+}

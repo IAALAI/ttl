@@ -1,0 +1,39 @@
+﻿# 沿用原版推荐的子 on_action 接入方式，保留原版建国效果。
+on_country_formed = {
+	on_actions = { baf_on_country_formed }
+}
+
+# ROOT = 刚成立的国家；仅 BAF 获得英法特色利益集团。
+baf_on_country_formed = {
+	trigger = {
+		c:BAF ?= ROOT
+	}
+
+	effect = {
+		# 法兰西特色资本家
+		ig:ig_industrialists = {
+			set_ig_trait = ig_trait:ig_trait_tax_avoidance
+			set_ig_trait = ig_trait:ig_trait_engines_of_progress
+			set_ig_trait = ig_trait:ig_trait_ventilate_unify_beautify
+		}
+		# 法兰西特色军队
+		ig:ig_armed_forces = {
+			set_ig_trait = ig_trait:ig_trait_materiel_waste
+			set_ig_trait = ig_trait:ig_trait_veteran_consultation
+			set_ig_trait = ig_trait:ig_trait_elan_vital
+		}
+		# 不列颠特色小市民
+		ig:ig_petty_bourgeoisie = {
+			set_ig_trait = ig_trait:ig_trait_bah_humbug
+			set_ig_trait = ig_trait:ig_trait_civil_service
+			set_ig_trait = ig_trait:ig_trait_old_lady_of_threadneedle_street
+		}
+		# 不列颠特色教会（圣公会 + 新教 work_ethic）
+		ig:ig_devout = {
+			set_interest_group_name = ig_anglican_church
+			set_ig_trait = ig_trait:ig_trait_pious_fiction
+			set_ig_trait = ig_trait:ig_trait_divine_right
+			set_ig_trait = ig_trait:ig_trait_work_ethic
+		}
+	}
+}

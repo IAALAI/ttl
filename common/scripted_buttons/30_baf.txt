@@ -30,115 +30,135 @@ button_baf_c_c_rhine_c = {
 	name = button_baf_c_c_rhine_c
 	desc = button_baf_c_c_rhine_c_desc
 	visible = {
-		NOT = {
-			exists = c:RHN
-		}
+		NOT = { exists = c:RHN }
 	}
 	possible = {
-		NOT = {
-			exists = c:RHN
+		NOT = { exists = c:RHN }
+		custom_tooltip = {
+			text = button_baf_c_c_rhine_c_count_tt
+			any_state_in_rhine = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count >= 4
+			}
 		}
-		any_state_in_rhine = {
-			OR = {
-				owner = root
-				owner = {
-					is_subject_of = root
+		OR = {
+			any_state_in_rhine = { owner = ROOT }
+			any_country = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_rhine
 				}
 			}
-			count >= 4
 		}
 	}
-	ai_chance = {
-		value = 50
-	}
+	ai_chance = { value = 50 }
 	effect = {
-		ordered_state_in_rhine = {
+		if = {
 			limit = {
-				owner = ROOT
+				any_country = {
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_rhine
+					}
+				}
 			}
-			order_by = gdp
-			position = 0
-			check_range_bounds = no
-			save_scope_as = RHN_state
+			ordered_country = {
+				limit = {
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_rhine
+					}
+				}
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				change_tag = RHN
+			}
 		}
-		create_country = {
-			tag = RHN
-			origin = ROOT
-			state = scope:RHN_state
-		}
-		ROOT = {
+		else = {
+			ordered_state_in_rhine = {
+				limit = { owner = ROOT }
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				save_scope_as = baf_rhine_state
+			}
+			create_country = {
+				tag = RHN
+				origin = ROOT
+				state = scope:baf_rhine_state
+			}
 			create_diplomatic_pact = {
 				country = c:RHN
 				type = puppet
 			}
-			set_relations = {
-				country = c:RHN
-				value = 80
-			}
 		}
 		c:RHN ?= {
 			add_liberty_desire = -100
-			add_modifier = baf_control_country
-			
+			add_modifier = { name = baf_control_country }
+		}
+		set_relations = {
+			country = c:RHN
+			value = 80
 		}
 	}
 }
 
 button_baf_c_c_rhine_e = {
 	name = button_baf_c_c_rhine_e
-	desc = ttl
-	cooldown = {
-		years = 5
-	}
+	desc = button_baf_c_c_rhine_e_desc
+	cooldown = { years = 5 }
 	visible = {
-		exists = c:RHN
+		c:RHN ?= { is_subject_of = ROOT }
 	}
 	possible = {
-		c:RHN ?= {
-			is_subject_of = ROOT
-		}
-		any_state_in_rhine = {
-			OR = {
-				owner = root
-				owner = {
-					is_subject_of = root
+		c:RHN ?= { is_subject_of = ROOT }
+		OR = {
+			any_country = {
+				NOT = { c:RHN ?= this }
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_rhine
 				}
+			}
+			any_state_in_rhine = {
+				owner = ROOT
+				is_incorporated = no
 			}
 		}
 	}
-	ai_chance = {
-		value = 50
-	}
+	ai_chance = { value = 50 }
 	effect = {
 		if = {
 			limit = {
 				any_country = {
-					NOT = {
-						c:RHN ?= this
-					}
+					NOT = { c:RHN ?= this }
 					is_subject_of = ROOT
-					any_state_in_rhine = {
-						owner = PREV
-					}
 					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_rhine
+					}
 				}
 			}
 			custom_tooltip = {
-				text = rhine_annexes_subjects_tt
+				text = baf_annex_subjects_tt
 				every_country = {
 					limit = {
-						NOT = {
-							c:RHN ?= this
-						}
+						NOT = { c:RHN ?= this }
 						is_subject_of = ROOT
-							any_state_in_rhine = {
-								owner = PREV
-						}
 						is_player = no
+						any_scope_state = {
+							is_in_geographic_region = geographic_region_rhine
+						}
 					}
-					c:RHN ?= {
-						annex = PREV
-					}
+					c:RHN ?= { annex = PREV }
 				}
 			}
 		}
@@ -150,7 +170,7 @@ button_baf_c_c_rhine_e = {
 				}
 			}
 			custom_tooltip = {
-				text = rhine_annexes_states_tt
+				text = baf_transfer_states_tt
 				every_state_in_rhine = {
 					limit = {
 						owner = ROOT
@@ -165,225 +185,251 @@ button_baf_c_c_rhine_e = {
 
 button_baf_c_c_danube_c = {
 	name = button_baf_c_c_danube_c
-	desc = ttl
+	desc = button_baf_c_c_danube_c_desc
 	visible = {
-		NOT = {
-			exists = c:KUK
-		}
+		NOT = { exists = c:KUK }
 	}
-	possible =  {
-		NOT = {
-			exists = c:KUK
+	possible = {
+		NOT = { exists = c:KUK }
+		custom_tooltip = {
+			text = button_baf_c_c_danube_c_count_tt
+			any_state_in_danube = {
+				OR = {
+					owner = ROOT
+					owner = { top_overlord ?= ROOT }
+				}
+				count >= 4
+			}
 		}
-		any_state_in_danube = {
-			OR = {
-				owner = root
-				owner = {
-					is_subject_of = root
+		OR = {
+			any_state_in_danube = { owner = ROOT }
+			any_country = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_danube
 				}
 			}
-			count >= 4
 		}
 	}
-	ai_chance = {
-		value = 50
-	}
+	ai_chance = { value = 50 }
 	effect = {
 		if = {
 			limit = {
 				any_country = {
 					is_subject_of = ROOT
-					capital = {
-						OR = {
-							is_in_geographic_region = geographic_region_danube
-						}
-					}
-					NOT = {
-						has_diplomatic_pact = {
-							who = ROOT
-							type = personal_union
-							is_initiator = no
-						}
-					}
-					is_player = yes
-				}
-			}
-			random_country = {
-				limit = {
-					is_subject_of = ROOT
-					capital = {
-						OR = {
-							is_in_geographic_region = geographic_region_north_germany_old
-							is_in_geographic_region = geographic_region_south_germany_old
-							is_in_geographic_region = geographic_region_rhine_old
-						}
-					}
-					NOT = {
-						has_diplomatic_pact = {
-							who = ROOT
-							type = personal_union
-							is_initiator = no
-						}
-					}
-					is_player = yes
-				}
-				change_tag = RHN
-			}
-		}
-		else_if = {
-			limit = {
-				any_country = {
-					is_subject_of = ROOT
-					capital = {
-						OR = {
-							is_in_geographic_region = geographic_region_north_germany_old
-							is_in_geographic_region = geographic_region_south_germany_old
-							is_in_geographic_region = geographic_region_rhine_old
-						}
-					}
-					NOT = {
-						has_diplomatic_pact = {
-							who = ROOT
-							type = personal_union
-							is_initiator = no
-						}
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_danube
 					}
 				}
 			}
 			ordered_country = {
 				limit = {
 					is_subject_of = ROOT
-					capital = {
-						OR = {
-							is_in_geographic_region = geographic_region_north_germany_old
-							is_in_geographic_region = geographic_region_south_germany_old
-							is_in_geographic_region = geographic_region_rhine_old
-						}
-					}
-					NOT = {
-						has_diplomatic_pact = {
-							who = ROOT
-							type = personal_union
-							is_initiator = no
-						}
-					}
-				}
-				order_by = country_rank
-				position = 0
-				check_range_bounds = no
-				change_tag = RHN
-			}
-		}
-		else = {
-			ordered_scope_state = {
-				limit = {
-					state_region = {
-						OR = {
-							is_homeland = cu:south_german
-							is_homeland = cu:north_german
-						}
-					}
-					OR = {
-						is_in_geographic_region = geographic_region_north_germany_old
-						is_in_geographic_region = geographic_region_south_germany_old
-						is_in_geographic_region = geographic_region_rhine_old
-					}
-					is_incorporated = no
-					trigger_if = {
-						limit = {
-							ROOT = {
-								country_has_primary_culture = cu:french
-							}
-						}
-						NOR = {
-							state_region = s:STATE_RHINELAND
-							state_region = s:STATE_NORTH_RHINE
-							state_region = s:STATE_WALLONIA
-							state_region = s:STATE_FLANDERS
-						}
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_danube
 					}
 				}
 				order_by = gdp
 				position = 0
 				check_range_bounds = no
-				save_scope_as = rhine_state
-			}
-			create_country = {
-				tag = RHN
-				origin = ROOT
-				state = scope:rhine_state
-			}
-			ROOT = {
-				create_diplomatic_pact = {
-					country = c:RHN
-					type = puppet
-				}
+				change_tag = KUK
 			}
 		}
-		c:RHN ?= {
-			save_scope_as = rhine_scope
+		else = {
+			ordered_state_in_danube = {
+				limit = { owner = ROOT }
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				save_scope_as = baf_danube_state
+			}
+			create_country = {
+				tag = KUK
+				origin = ROOT
+				state = scope:baf_danube_state
+			}
+			create_diplomatic_pact = {
+				country = c:KUK
+				type = puppet
+			}
+		}
+		c:KUK ?= {
+			add_liberty_desire = -100
+			add_modifier = { name = baf_control_country }
+		}
+		set_relations = {
+			country = c:KUK
+			value = 80
 		}
 	}
 }
 
 button_baf_c_c_danube_e = {
 	name = button_baf_c_c_danube_e
-	desc = ttl
-	cooldown = {
-		years = 5
-	}
+	desc = button_baf_c_c_danube_e_desc
+	cooldown = { years = 5 }
 	visible = {
-		exists = c:KUK
+		c:KUK ?= { is_subject_of = ROOT }
 	}
 	possible = {
-
+		c:KUK ?= { is_subject_of = ROOT }
+		OR = {
+			any_country = {
+				NOT = { c:KUK ?= this }
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_danube
+				}
+			}
+			any_state_in_danube = {
+				owner = ROOT
+				is_incorporated = no
+			}
+		}
 	}
-	ai_chance = {
-		value = 50
-	}
+	ai_chance = { value = 50 }
 	effect = {
+		if = {
+			limit = {
+				any_country = {
+					NOT = { c:KUK ?= this }
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_danube
+					}
+				}
+			}
+			custom_tooltip = {
+				text = baf_annex_subjects_tt
+				every_country = {
+					limit = {
+						NOT = { c:KUK ?= this }
+						is_subject_of = ROOT
+						is_player = no
+						any_scope_state = {
+							is_in_geographic_region = geographic_region_danube
+						}
+					}
+					c:KUK ?= { annex = PREV }
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_state_in_danube = {
+					owner = ROOT
+					is_incorporated = no
+				}
+			}
+			custom_tooltip = {
+				text = baf_transfer_states_tt
+				every_state_in_danube = {
+					limit = {
+						owner = ROOT
+						is_incorporated = no
+					}
+					set_state_owner = c:KUK
+				}
+			}
+		}
+	}
+}
 
+button_baf_annex_rhn = {
+	name = button_baf_annex_rhn
+	desc = button_baf_annex_rhn_desc
+	visible = {
+		has_variable = conquer_central_europe
+		c:RHN ?= { is_subject_of = ROOT }
+	}
+	possible = {
+		c:RHN ?= { is_subject_of = ROOT }
+	}
+	ai_chance = { value = 0 }
+	effect = {
+		annex = c:RHN
+	}
+}
+
+button_baf_annex_kuk = {
+	name = button_baf_annex_kuk
+	desc = button_baf_annex_kuk_desc
+	visible = {
+		has_variable = conquer_central_europe
+		c:KUK ?= { is_subject_of = ROOT }
+	}
+	possible = {
+		c:KUK ?= { is_subject_of = ROOT }
+	}
+	ai_chance = { value = 0 }
+	effect = {
+		annex = c:KUK
 	}
 }
 
 button_baf_c_na_reset_hbc = {
 	name = button_baf_c_na_reset_hbc
-	desc = ttl
-	possible = {
-		any_state_in_north_america = {
-			owner = {
-				is_subject_of = ROOT
-			}
-		}
-		NOT = {
-			exists = c:HBC
-		}
-	}
+	desc = button_baf_c_na_reset_hbc_desc
 	visible = {
-		NOT = {
-			exists = c:HBC
-		}
-		has_company = company_type:company_hbc
+		NOT = { exists = c:HBC }
 	}
-	effect = {
-		ordered_state_in_north_america = {
-			limit = {
-				owner = root
-				owner = {
-					is_subject_of = ROOT
+	possible = {
+		NOT = { exists = c:HBC }
+		OR = {
+			any_state_in_north_america = { owner = ROOT }
+			any_country = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_north_america
 				}
 			}
-			order_by = gdp
-			position = 0
-			check_range_bounds = no
-			save_scope_as = HBC_state
 		}
-		create_country = {
-			tag = HBC
-			origin = ROOT
-			state = scope:HBC_state
+	}
+	ai_chance = { value = 50 }
+	effect = {
+		if = {
+			limit = {
+				any_country = {
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_north_america
+					}
+				}
+			}
+			ordered_country = {
+				limit = {
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_north_america
+					}
+				}
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				change_tag = HBC
+			}
 		}
-		ROOT = {
+		else = {
+			ordered_state_in_north_america = {
+				limit = { owner = ROOT }
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				save_scope_as = baf_hbc_state
+			}
+			create_country = {
+				tag = HBC
+				origin = ROOT
+				state = scope:baf_hbc_state
+			}
 			create_diplomatic_pact = {
 				country = c:HBC
 				type = puppet
@@ -391,162 +437,636 @@ button_baf_c_na_reset_hbc = {
 		}
 		c:HBC ?= {
 			change_subject_type = subject_type_chartered_company
-			add_change_relations_progress = {
-				country = root
-				value = 100
+			add_liberty_desire = -100
+			add_modifier = { name = baf_control_country }
+		}
+		if = {
+			limit = { has_company = company_type:company_hbc }
+			company:company_hbc ?= {
+				add_owned_country = c:HBC
 			}
 		}
-		company:company_hbc ?= {
-			add_owned_country = c:HBC
+		set_relations = {
+			country = c:HBC
+			value = 80
 		}
 	}
 }
 
 button_baf_c_na_expansion_hbc = {
 	name = button_baf_c_na_expansion_hbc
-	desc = button_baf_c_na_expansion_hbc_reason
-	possible = {
-		exists = c:HBC
-		c:HBC = {
-			is_subject_of = root
-		}
-	}
-	cooldown = {
-		years = 5
-	}
+	desc = button_baf_c_na_expansion_hbc_desc
+	cooldown = { years = 5 }
 	visible = {
-		exists = c:HBC
-		c:HBC = {
-			is_subject_of = root
-		}
-
+		c:HBC ?= { is_subject_of = ROOT }
 	}
+	possible = {
+		c:HBC ?= { is_subject_of = ROOT }
+		OR = {
+			any_country = {
+				NOT = { c:HBC ?= this }
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_north_america
+				}
+			}
+			any_state_in_north_america = {
+				owner = ROOT
+				is_incorporated = no
+			}
+		}
+	}
+	ai_chance = { value = 50 }
 	effect = {
 		if = {
 			limit = {
 				any_country = {
-					NOT = {
-						c:HBC ?= this
-					}
+					NOT = { c:HBC ?= this }
 					is_subject_of = ROOT
-					any_state_in_north_america = {
-						owner = PREV
-					}
 					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_north_america
+					}
 				}
 			}
 			custom_tooltip = {
-				text = rhine_annexes_subjects_tt
+				text = baf_annex_subjects_tt
 				every_country = {
 					limit = {
-						NOT = {
-							c:HBC ?= this
-						}
+						NOT = { c:HBC ?= this }
 						is_subject_of = ROOT
-						any_state_in_north_america = {
-							owner = PREV
-						}
 						is_player = no
+						any_scope_state = {
+							is_in_geographic_region = geographic_region_north_america
+						}
 					}
-					c:HBC ?= {
-						annex = PREV
-					}
+					c:HBC ?= { annex = PREV }
 				}
 			}
 		}
-
-		root = {
-			set_relations = {
-				country = c:HBC
-				value = 100
+		if = {
+			limit = {
+				any_state_in_north_america = {
+					owner = ROOT
+					is_incorporated = no
+				}
 			}
-			add_liberty_desire = -100
+			custom_tooltip = {
+				text = baf_transfer_states_tt
+				every_state_in_north_america = {
+					limit = {
+						owner = ROOT
+						is_incorporated = no
+					}
+					set_state_owner = c:HBC
+				}
+			}
+		}
+		c:HBC ?= { add_liberty_desire = -100 }
+		set_relations = {
+			country = c:HBC
+			value = 100
 		}
 	}
 }
 
 button_baf_c_na_conquer_hbc = {
 	name = button_baf_c_na_conquer_hbc
-	desc = button_baf_c_na_conquer_hbc_reason
-	possible = {
-		exists = c:HBC
-		c:HBC = {
-			is_subject_of = root
-		}
-	}
-	cooldown = {
-		years = 5
-	}
+	desc = button_baf_c_na_conquer_hbc_desc
+	cooldown = { years = 5 }
 	visible = {
-		exists = c:HBC
-		c:HBC = {
-			is_subject_of = root
+		any_state_in_north_america = {
+			owner = {
+				NOT = { is_country_type = decentralized }
+				NOR = {
+					this = ROOT
+					is_subject_of = ROOT
+				}
+			}
+			any_neighbouring_state = {
+				OR = {
+					owner = ROOT
+					owner = { is_subject_of = ROOT }
+				}
+			}
 		}
 	}
+	possible = {
+		is_at_war = no
+		aggressive_diplomatic_plays_permitted = yes
+		any_state_in_north_america = {
+			owner = {
+				NOT = { is_country_type = decentralized }
+				NOR = {
+					this = ROOT
+					is_subject_of = ROOT
+				}
+			}
+			any_neighbouring_state = {
+				OR = {
+					owner = ROOT
+					owner = { is_subject_of = ROOT }
+				}
+			}
+		}
+	}
+	ai_chance = { value = 0 }
 	effect = {
-		# 向一个北美洲的国家发起外交博弈，优先要求割让相邻一个地块
+		ordered_state_in_north_america = {
+			limit = {
+				owner = {
+					NOT = { is_country_type = decentralized }
+					NOR = {
+						this = ROOT
+						is_subject_of = ROOT
+					}
+				}
+				any_neighbouring_state = {
+					OR = {
+						owner = ROOT
+						owner = { is_subject_of = ROOT }
+					}
+				}
+			}
+			order_by = gdp
+			position = 0
+			check_range_bounds = no
+			save_scope_as = baf_na_state
+			owner = { save_scope_as = baf_na_target }
+		}
+		if = {
+			limit = {
+				exists = scope:baf_na_target
+				exists = scope:baf_na_state
+			}
+			create_diplomatic_play = {
+				type = dp_conquer_state
+				target_country = scope:baf_na_target
+				add_war_goal = {
+					holder = ROOT
+					type = conquer_state
+					target_state = scope:baf_na_state
+					primary_demand = yes
+				}
+			}
+		}
 	}
 }
 
 button_baf_c_na_recovered = {
 	name = button_baf_c_na_recovered
+	desc = button_baf_c_na_recovered_desc
+	visible = {
+		has_variable = conquer_north_america
+		any_country = {
+			is_subject_of = ROOT
+			is_player = no
+			any_scope_state = {
+				is_in_geographic_region = geographic_region_north_america
+			}
+		}
+	}
 	possible = {
-		custom_tooltip = {
-			text = ttl
-			sr:region_canada = {
-				not = {
-					any_state = {
-						NOT = {
-							OR = {
-								owner = root
-								owner = {
-									is_subject_of = root
-								}
-							}
+		has_variable = conquer_north_america
+	}
+	ai_chance = { value = 0 }
+	effect = {
+		every_country = {
+			limit = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_north_america
+				}
+			}
+			ROOT = { annex = PREV }
+		}
+	}
+}
+
+button_baf_india_buymore = {
+	name = button_baf_india_buymore
+	desc = button_baf_india_buymore_desc
+	cooldown = { years = 1 }
+	visible = {
+		OR = {
+			any_princely_state = { is_subject_of = ROOT }
+			AND = {
+				c:BIC ?= { is_subject_of = ROOT }
+				any_princely_state = { is_subject_of = c:BIC }
+			}
+		}
+	}
+	possible = {
+		bureaucracy > 100
+		any_princely_state = {
+			OR = {
+				is_subject_of = ROOT
+				AND = {
+					exists = c:BIC
+					is_subject_of = c:BIC
+					c:BIC = { is_subject_of = ROOT }
+				}
+			}
+			relations:ROOT >= relations_threshold:amicable
+			liberty_desire < define:NDiplomacy|WAR_GOAL_INFAMY_LOW_LIBERTY_DESIRE_THRESHOLD
+		}
+	}
+	ai_chance = { value = 0 }
+	effect = {
+		ordered_princely_state = {
+			limit = {
+				OR = {
+					is_subject_of = ROOT
+					AND = {
+						exists = c:BIC
+						is_subject_of = c:BIC
+						c:BIC = { is_subject_of = ROOT }
+					}
+				}
+				relations:ROOT >= relations_threshold:amicable
+				liberty_desire < define:NDiplomacy|WAR_GOAL_INFAMY_LOW_LIBERTY_DESIRE_THRESHOLD
+			}
+			order_by = gdp
+			position = 0
+			check_range_bounds = no
+			save_scope_as = baf_princely_state
+		}
+		if = {
+			limit = {
+				exists = scope:baf_princely_state
+				c:BIC ?= { is_subject_of = ROOT }
+			}
+			c:BIC = { annex = scope:baf_princely_state }
+		}
+		else_if = {
+			limit = { exists = scope:baf_princely_state }
+			annex = scope:baf_princely_state
+		}
+		add_modifier = {
+			name = baf_india_administration
+			days = 365
+		}
+	}
+}
+
+button_baf_india_conquer = {
+	name = button_baf_india_conquer
+	desc = button_baf_india_conquer_desc
+	cooldown = { years = 5 }
+	visible = {
+		any_state_in_india = {
+			owner = {
+				NOT = { is_country_type = decentralized }
+				NOR = {
+					this = ROOT
+					is_subject_of = ROOT
+					AND = {
+						exists = c:BIC
+						OR = {
+							this = c:BIC
+							is_subject_of = c:BIC
+						}
+					}
+				}
+			}
+			any_neighbouring_state = {
+				OR = {
+					owner = ROOT
+					owner = { is_subject_of = ROOT }
+					AND = {
+						exists = c:BIC
+						OR = {
+							owner = c:BIC
+							owner = { is_subject_of = c:BIC }
 						}
 					}
 				}
 			}
 		}
 	}
+	possible = {
+		bureaucracy > 100
+		trigger_if = {
+			limit = { c:BIC ?= { is_subject_of = ROOT } }
+			c:BIC = {
+				is_at_war = no
+				aggressive_diplomatic_plays_permitted = yes
+			}
+		}
+		trigger_else = {
+			is_at_war = no
+			aggressive_diplomatic_plays_permitted = yes
+		}
+		any_state_in_india = {
+			owner = {
+				NOT = { is_country_type = decentralized }
+				NOR = {
+					this = ROOT
+					is_subject_of = ROOT
+					AND = {
+						exists = c:BIC
+						OR = {
+							this = c:BIC
+							is_subject_of = c:BIC
+						}
+					}
+				}
+			}
+			any_neighbouring_state = {
+				OR = {
+					owner = ROOT
+					owner = { is_subject_of = ROOT }
+					AND = {
+						exists = c:BIC
+						OR = {
+							owner = c:BIC
+							owner = { is_subject_of = c:BIC }
+						}
+					}
+				}
+			}
+		}
+	}
+	ai_chance = { value = 0 }
 	effect = {
-		# 吞并整个北美
+		ordered_state_in_india = {
+			limit = {
+				owner = {
+					NOT = { is_country_type = decentralized }
+					NOR = {
+						this = ROOT
+						is_subject_of = ROOT
+						AND = {
+							exists = c:BIC
+							OR = {
+								this = c:BIC
+								is_subject_of = c:BIC
+							}
+						}
+					}
+				}
+				any_neighbouring_state = {
+					OR = {
+						owner = ROOT
+						owner = { is_subject_of = ROOT }
+						AND = {
+							exists = c:BIC
+							OR = {
+								owner = c:BIC
+								owner = { is_subject_of = c:BIC }
+							}
+						}
+					}
+				}
+			}
+			order_by = gdp
+			position = 0
+			check_range_bounds = no
+			save_scope_as = baf_india_state
+			owner = { save_scope_as = baf_india_target }
+		}
+		if = {
+			limit = {
+				exists = scope:baf_india_target
+				exists = scope:baf_india_state
+				c:BIC ?= { is_subject_of = ROOT }
+			}
+			c:BIC = {
+				create_diplomatic_play = {
+					type = dp_conquer_state
+					target_country = scope:baf_india_target
+					add_war_goal = {
+						holder = c:BIC
+						type = conquer_state
+						target_state = scope:baf_india_state
+						primary_demand = yes
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				exists = scope:baf_india_target
+				exists = scope:baf_india_state
+			}
+			create_diplomatic_play = {
+				type = dp_conquer_state
+				target_country = scope:baf_india_target
+				add_war_goal = {
+					holder = ROOT
+					type = conquer_state
+					target_state = scope:baf_india_state
+					primary_demand = yes
+				}
+			}
+		}
+		add_modifier = {
+			name = baf_india_administration
+			days = normal_modifier_time
+		}
 	}
 }
 
-button_baf_india_buymore = {
-	# 加速东印度公司的扩张
-	name = ttl
-	desc = ttl
-
-	effect = {
-		# 作为宗主的你出现买下土邦
-
+button_baf_annex_bic = {
+	name = button_baf_annex_bic
+	desc = button_baf_annex_bic_desc
+	visible = {
+		has_variable = conquer_south_asia
+		c:BIC ?= { is_subject_of = ROOT }
 	}
-}
-
-button_baf_india_conquer = {
-	name = ttl
-	desc = ttl
-
+	possible = {
+		c:BIC ?= { is_subject_of = ROOT }
+	}
+	ai_chance = { value = 0 }
 	effect = {
-		# 花费你的行政力,让印度开打
+		annex = c:BIC
 	}
 }
 
 button_baf_voc_c = {
-	name = ttl
+	name = button_baf_voc_c
+	desc = button_baf_voc_c_desc
+	visible = {
+		NOT = { exists = c:DEI }
+	}
+	possible = {
+		NOT = { exists = c:DEI }
+		OR = {
+			any_state_in_indonesia = { owner = ROOT }
+			any_country = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_indonesia
+				}
+			}
+		}
+	}
+	ai_chance = { value = 50 }
 	effect = {
-		
+		if = {
+			limit = {
+				any_country = {
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_indonesia
+					}
+				}
+			}
+			ordered_country = {
+				limit = {
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_indonesia
+					}
+				}
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				change_tag = DEI
+			}
+		}
+		else = {
+			ordered_state_in_indonesia = {
+				limit = { owner = ROOT }
+				order_by = gdp
+				position = 0
+				check_range_bounds = no
+				save_scope_as = baf_dei_state
+			}
+			create_country = {
+				tag = DEI
+				origin = ROOT
+				state = scope:baf_dei_state
+			}
+			create_diplomatic_pact = {
+				country = c:DEI
+				type = puppet
+			}
+		}
+		c:DEI ?= {
+			add_liberty_desire = -100
+			add_modifier = { name = baf_control_country }
+		}
+		set_relations = {
+			country = c:DEI
+			value = 80
+		}
 	}
 }
 
 button_baf_voc_e = {
-	name = ttl
-	cooldown = {
-		years = 5
+	name = button_baf_voc_e
+	desc = button_baf_voc_e_desc
+	cooldown = { years = 5 }
+	visible = {
+		c:DEI ?= { is_subject_of = ROOT }
 	}
+	possible = {
+		c:DEI ?= { is_subject_of = ROOT }
+		OR = {
+			any_country = {
+				NOT = { c:DEI ?= this }
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = {
+					is_in_geographic_region = geographic_region_indonesia
+				}
+			}
+			any_state_in_indonesia = {
+				owner = ROOT
+				is_incorporated = no
+			}
+		}
+	}
+	ai_chance = { value = 50 }
 	effect = {
-		
+		if = {
+			limit = {
+				any_country = {
+					NOT = { c:DEI ?= this }
+					is_subject_of = ROOT
+					is_player = no
+					any_scope_state = {
+						is_in_geographic_region = geographic_region_indonesia
+					}
+				}
+			}
+			custom_tooltip = {
+				text = baf_annex_subjects_tt
+				every_country = {
+					limit = {
+						NOT = { c:DEI ?= this }
+						is_subject_of = ROOT
+						is_player = no
+						any_scope_state = {
+							is_in_geographic_region = geographic_region_indonesia
+						}
+					}
+					c:DEI ?= { annex = PREV }
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_state_in_indonesia = {
+					owner = ROOT
+					is_incorporated = no
+				}
+			}
+			custom_tooltip = {
+				text = baf_transfer_states_tt
+				every_state_in_indonesia = {
+					limit = {
+						owner = ROOT
+						is_incorporated = no
+					}
+					set_state_owner = c:DEI
+				}
+			}
+		}
+		c:DEI ?= { add_liberty_desire = -100 }
+		set_relations = {
+			country = c:DEI
+			value = 100
+		}
+	}
+}
+
+button_baf_annex_southeast = {
+	name = button_baf_annex_southeast
+	desc = button_baf_annex_southeast_desc
+	visible = {
+		has_variable = conquer_southeast_asia
+		OR = {
+			c:DEI ?= { is_subject_of = ROOT }
+			any_country = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = { baf_state_is_in_australia = yes }
+			}
+		}
+	}
+	possible = {
+		has_variable = conquer_southeast_asia
+	}
+	ai_chance = { value = 0 }
+	effect = {
+		if = {
+			limit = { c:DEI ?= { is_subject_of = ROOT } }
+			annex = c:DEI
+		}
+		every_country = {
+			limit = {
+				is_subject_of = ROOT
+				is_player = no
+				any_scope_state = { baf_state_is_in_australia = yes }
+			}
+			ROOT = { annex = PREV }
+		}
 	}
 }
